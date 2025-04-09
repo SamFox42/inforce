@@ -1,0 +1,30 @@
+<svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+  <!-- Battery body -->
+  <rect x="110" y="80" width="180" height="240" rx="10" ry="10" fill="#d6d6d6" />
+  <rect x="120" y="90" width="160" height="220" rx="5" ry="5" fill="#f0f0f0" />
+  
+  <!-- Battery terminals -->
+  <rect x="170" y="60" width="60" height="20" rx="5" ry="5" fill="#b4b4b4" />
+  <rect x="190" y="50" width="20" height="10" fill="#8a8a8a" />
+  
+  <!-- Battery markings -->
+  <circle cx="200" cy="140" r="40" fill="#e6e6e6" />
+  <text x="185" y="145" font-family="Arial" font-weight="bold" font-size="18" fill="#4a4a4a">Li-ion</text>
+  <text x="175" y="210" font-family="Arial" font-weight="bold" font-size="16" fill="#5a5a5a">3000 mAh</text>
+  <text x="165" y="230" font-family="Arial" font-size="14" fill="#858585">3.85V - 4.4V</text>
+  <text x="170" y="260" font-family="Arial" font-size="12" fill="#a5a5a5">Made in China</text>
+  
+  <!-- Warning symbols -->
+  <polygon points="320,140 310,120 330,120" fill="#ff5252" />
+  <text x="319" y="138" font-family="Arial" font-weight="bold" font-size="18" fill="#ffffff" text-anchor="middle">!</text>
+  
+  <!-- Metallic contacts -->
+  <rect x="130" y="100" width="15" height="8" rx="1" ry="1" fill="#aaaaaa" />
+  <rect x="255" y="100" width="15" height="8" rx="1" ry="1" fill="#aaaaaa" />
+  <rect x="130" y="292" width="15" height="8" rx="1" ry="1" fill="#aaaaaa" />
+  <rect x="255" y="292" width="15" height="8" rx="1" ry="1" fill="#aaaaaa" />
+  
+  <!-- Reflections -->
+  <path d="M120 110 Q 200 125, 280 110" stroke="#ffffff" stroke-width="2" fill="none" opacity="0.3" />
+  <path d="M120 120 Q 200 140, 280 120" stroke="#ffffff" stroke-width="3" fill="none" opacity="0.2" />
+</svg>

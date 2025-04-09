@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>InForce - Премиальные запчасти для смартфонов | Набережные Челны</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="InForce - профессиональный магазин запчастей для смартфонов в Набережных Челнах. Качественные детали, профессиональный ремонт и консультации. Запчасти для iPhone, Samsung, Xiaomi и других брендов.">
+    <meta name="keywords" content="запчасти для смартфонов, ремонт телефонов, запчасти для iPhone, запчасти для Samsung, запчасти для Xiaomi, Набережные Челны, InForce">
+    <meta name="author" content="InForce">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://inforce-parts.ru/">
+    <meta property="og:title" content="InForce - Премиальные запчасти для смартфонов | Набережные Челны">
+    <meta property="og:description" content="Качественные запчасти для смартфонов всех популярных брендов. Профессиональный ремонт и консультации.">
+    <meta property="og:image" content="https://inforce-parts.ru/assets/og-image.jpg">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://inforce-parts.ru/">
+    <meta property="twitter:title" content="InForce - Премиальные запчасти для смартфонов | Набережные Челны">
+    <meta property="twitter:description" content="Качественные запчасти для смартфонов всех популярных брендов. Профессиональный ремонт и консультации.">
+    <meta property="twitter:image" content="https://inforce-parts.ru/assets/og-image.jpg">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📱</text></svg>">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Preloader -->
+    <div class="loading-overlay">
+        <div class="spinner"></div>
+        <p class="loading-text">Загрузка...</p>
+    </div>
+    
+    <!-- Header -->
+    <header class="navbar" id="header">
+        <div class="container">
+            <div class="logo">
+                <div class="logo-icon">I</div>
+                <div class="logo-text"><span>In</span>Force</div>
+            </div>
+            
+            <div class="menu-toggle">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+            
+            <ul class="nav-menu">
+                <li><a href="#hero" class="nav-link">Главная</a></li>
+                <li><a href="#services" class="nav-link">Услуги</a></li>
+                <li><a href="#products" class="nav-link">Запчасти</a></li>
+                <li><a href="#about" class="nav-link">О нас</a></li>
+                <li><a href="#contact" class="nav-link">Контакты</a></li>
+                <li>
+                    <form id="search-form" class="search-form">
+                        <input type="text" id="search-input" placeholder="Поиск запчастей..." />
+                        <button type="submit"><i class="fas fa-search"></i></button>
+                    </form>
+                </li>
+            </ul>
+            
+            <div class="call-now">
+                <a href="tel:+79770922791" class="header-phone">
+                    <i class="fas fa-phone-alt"></i> +7 (977) 092-27-91
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="hero-section" id="hero">
+            <div class="container">
+                <div class="grid grid-2">
+                    <div class="hero-content">
+                        <h1>Запчасти для смартфонов <span class="text-gradient">премиум-класса</span></h1>
+                        <p class="text-lg">Качественные комплектующие для ремонта телефонов всех популярных брендов с гарантией и профессиональной поддержкой</p>
+                        
+                        <div class="hero-buttons">
+                            <a href="#products" class="btn btn-primary">
+                                <i class="fas fa-shopping-cart"></i> Каталог запчастей
+                            </a>
+                            <a href="#contact" class="btn btn-secondary">
+                                <i class="fas fa-headset"></i> Связаться с нами
+                            </a>
+                        </div>
+                        
+                        <div class="hero-stats">
+                            <div class="stat-item">
+                                <div class="stat-value">5+</div>
+                                <div class="stat-label">Лет на рынке</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value">1000+</div>
+                                <div class="stat-label">Довольных клиентов</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value">500+</div>
+                                <div class="stat-label">Моделей запчастей</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </section>
+
+        <!-- Search Results Section -->
+        <div id="search-results" class="search-results"></div>
+        
+        <!-- Featured Products Slider 
+        <section class="featured-section">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-subtitle">Популярные товары</span>
+                    <h2>Лучшие <span class="text-gradient">предложения</span></h2>
+                    <p class="text-lg">Самые популярные запчасти для телефонов по выгодным ценам</p>
+                </div>
+                
+                <div class="featured-slider" id="featured-slider">
+                    Slider will be loaded from config.txt
+                    <div class="slider-placeholder">
+                        <i class="fas fa-sync fa-spin"></i>
+                        <p>Загрузка популярных товаров...</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        -->
+        
+        <!-- Services Section -->
+        <section class="services-section" id="services">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-subtitle">Наши услуги</span>
+                    <h2>Что мы <span class="text-gradient">предлагаем</span></h2>
+                    <p class="text-lg">Профессиональный ремонт и обслуживание мобильных устройств с использованием только качественных комплектующих</p>
+                </div>
+                
+                <div class="services-grid" id="services-container">
+                    <!-- Services will be loaded from config.txt -->
+                    <div class="service-card skeleton"></div>
+                    <div class="service-card skeleton"></div>
+                    <div class="service-card skeleton"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Products Section -->
+        <section class="products-section" id="products">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-subtitle">Каталог товаров</span>
+                    <h2>Запчасти для <span class="text-gradient">смартфонов</span></h2>
+                    <p class="text-lg">Широкий ассортимент оригинальных и совместимых комплектующих для различных моделей телефонов</p>
+                </div>
+                
+                <div class="categories-filter" id="categories-filter">
+                    <!-- Categories will be loaded from config.txt -->
+                    <button class="category-btn active" data-category="all">Все</button>
+                    <button class="category-btn skeleton"></button>
+                    <button class="category-btn skeleton"></button>
+                    <button class="category-btn skeleton"></button>
+                </div>
+                
+                <div class="products-grid" id="products-container">
+                    <!-- Products will be loaded from config.txt -->
+                    <div class="product-card skeleton"></div>
+                    <div class="product-card skeleton"></div>
+                    <div class="product-card skeleton"></div>
+                    <div class="product-card skeleton"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section class="about-section" id="about">
+            <div class="container">
+                <div class="about-grid">
+                    <div class="about-image fade-left">
+                        <div class="about-card">
+                            <div class="about-shape shape-1"></div>
+                            <div class="about-shape shape-2"></div>
+                            <div class="about-logo">
+                                <span>In</span>Force
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="about-content fade-right">
+                        <div class="section-header left-align">
+                            <span class="section-subtitle">О компании</span>
+                            <h2>Почему выбирают <span class="text-gradient">InForce</span></h2>
+                            <p class="text-lg">Наша компания специализируется на продаже качественных запчастей для смартфонов и оказании услуг по ремонту мобильных устройств</p>
+                        </div>
+                        
+                        <div class="features-list" id="features-container">
+                            <!-- Features will be loaded from config.txt -->
+                            <div class="feature-item skeleton"></div>
+                            <div class="feature-item skeleton"></div>
+                            <div class="feature-item skeleton"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section class="contact-section" id="contact">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-subtitle">Свяжитесь с нами</span>
+                    <h2>Как нас <span class="text-gradient">найти</span></h2>
+                    <p class="text-lg">Мы всегда рады видеть вас в нашем магазине и готовы ответить на любые вопросы</p>
+                </div>
+                
+                <div class="contact-grid">
+                    <div class="contact-info">
+                        <div class="info-card fade-up delay-100">
+                            <div class="info-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div class="info-item">
+                                <h3>Адрес</h3>
+                                <p>Республика Татарстан (Татарстан), Набережные Челны, проспект Мира, 52/16</p>
+                            </div>
+                        </div>
+                        
+                        <div class="info-card fade-up delay-200">
+                            <div class="info-icon">
+                                <i class="fas fa-phone-alt"></i>
+                            </div>
+                            <div class="info-item">
+                                <h3>Телефон</h3>
+                                <p><a href="tel:+79770922791">+7 (977) 092-27-91</a></p>
+                            </div>
+                        </div>
+                        
+                        <div class="info-card fade-up delay-300">
+                            <div class="info-icon">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div class="info-item">
+                                <h3>Часы работы</h3>
+                                <p id="working-hours">Загрузка...</p>
+                            </div>
+                        </div>
+                        
+                        <div class="social-links">
+                            <a href="#" class="social-link"><i class="fab fa-vk"></i></a>
+                            <a href="#" class="social-link"><i class="fab fa-telegram"></i></a>
+                            <a href="#" class="social-link"><i class="fab fa-whatsapp"></i></a>
+                        </div>
+                    </div>
+                    
+                    <iframe src="https://yandex.ru/map-widget/v1/?um=constructor%3A43806c2eb5b3e7a8a94bb8ae1fa746afc5808c0600c5500704e71e4cca89c726&amp;source=constructor" width="500" height="400" frameborder="0"></iframe>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-waves">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" class="shape-fill"></path>
+            </svg>
+        </div>
+        
+        <div class="container">
+            <div class="footer-content">
+                <div>
+                    <div class="footer-logo">
+                        <div class="logo-icon">I</div>
+                        <div class="footer-logo-text"><span>In</span>Force</div>
+                    </div>
+                    <p class="footer-description">Мы предлагаем широкий ассортимент запчастей для смартфонов и профессиональные услуги по ремонту мобильных устройств. Гарантия качества и индивидуальный подход к каждому клиенту.</p>
+                </div>
+                
+                <div class="footer-columns">
+                    <div class="footer-column">
+                        <h3>Навигация</h3>
+                        <ul class="footer-links">
+                            <li><a href="#hero">Главная</a></li>
+                            <li><a href="#services">Услуги</a></li>
+                            <li><a href="#products">Запчасти</a></li>
+                            <li><a href="#about">О нас</a></li>
+                            <li><a href="#contact">Контакты</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="footer-column">
+                        <h3>Контакты</h3>
+                        <ul class="footer-links">
+                            <li><a href="#"><i class="fas fa-map-marker-alt"></i> Набережные Челны, проспект Мира, 52/16</a></li>
+                            <li><a href="tel:+79770922791"><i class="fas fa-phone-alt"></i> +7 (977) 092-27-91</a></li>
+                            <li><a href="#"><i class="fab fa-vk"></i> ВКонтакте</a></li>
+                            <li><a href="#"><i class="fab fa-telegram"></i> Telegram</a></li>
+                            <li><a href="#"><i class="fab fa-whatsapp"></i> WhatsApp</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; <span id="current-year"></span> InForce. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scroll to Top Button -->
+    <div class="scroll-to-top">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/config-loader.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+        // Set current year
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+        
+        // Initialize Google Maps
+        function initMap() {
+            const location = { lat: 55.7172, lng: 52.3936 }; // Approximate coordinates for Набережные Челны
+            const map = new google.maps.Map(document.getElementById("map"), {
+                zoom: 15,
+                center: location,
+                styles: [
+                    {
+                        "featureType": "all",
+                        "elementType": "labels.text.fill",
+                        "stylers": [{"saturation": 36}, {"color": "#333333"}, {"lightness": 40}]
+                    },
+                    {
+                        "featureType": "all",
+                        "elementType": "labels.text.stroke",
+                        "stylers": [{"visibility": "on"}, {"color": "#ffffff"}, {"lightness": 16}]
+                    },
+                    {
+                        "featureType": "all",
+                        "elementType": "labels.icon",
+                        "stylers": [{"visibility": "off"}]
+                    },
+                    {
+                        "featureType": "administrative",
+                        "elementType": "geometry.fill",
+                        "stylers": [{"color": "#fefefe"}, {"lightness": 20}]
+                    },
+                    {
+                        "featureType": "administrative",
+                        "elementType": "geometry.stroke",
+                        "stylers": [{"color": "#fefefe"}, {"lightness": 17}, {"weight": 1.2}]
+                    }
+                ]
+            });
+            
+            const marker = new google.maps.Marker({
+                position: location,
+                map: map,
+                title: "InForce - Магазин запчастей для смартфонов"
+            });
+        }
+    </script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=GOOGLE_MAPS_API_KEY&callback=initMap"></script>
+</body>
+</html>

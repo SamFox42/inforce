@@ -1,0 +1,307 @@
+/* 
+* InForce - Premium Smartphone Parts Shop
+* Responsive Styles
+*/
+
+/* Large Desktops (up to 1440px) */
+@media (max-width: 1440px) {
+    html {
+        font-size: 60%;
+    }
+    
+    .container {
+        max-width: 1200px;
+    }
+    
+    .hero-section {
+        padding: 160px 0 100px;
+    }
+}
+
+/* Small Desktops (up to 1280px) */
+@media (max-width: 1280px) {
+    html {
+        font-size: 58%;
+    }
+    
+    .container {
+        max-width: 1100px;
+    }
+    
+    .circle-1 {
+        width: 100px;
+        height: 100px;
+    }
+    
+    .circle-2 {
+        width: 70px;
+        height: 70px;
+    }
+    
+    .services-grid {
+        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    }
+}
+
+/* Tablets and Small Laptops (up to 1024px) */
+@media (max-width: 1024px) {
+    html {
+        font-size: 56%;
+    }
+    
+    section {
+        padding: var(--spacing-xxl) 0;
+    }
+    
+    .container {
+        max-width: 900px;
+    }
+    
+    h1 {
+        font-size: 4.8rem;
+    }
+    
+    h2 {
+        font-size: 3.6rem;
+    }
+    
+    .hero-section::before,
+    .hero-section::after {
+        width: 350px;
+        height: 350px;
+    }
+    
+    .grid-2, 
+    .grid-3, 
+    .grid-4 {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-xl);
+    }
+    
+    .about-grid,
+    .contact-grid,
+    .footer-content {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-xl);
+    }
+    
+    .about-card {
+        margin: 0 auto;
+    }
+    
+    .phone-mockup {
+        display: none;
+    }
+    
+    .service-card {
+        max-width: 500px;
+        margin: 0 auto;
+    }
+}
+
+/* Tablets (up to 768px) */
+@media (max-width: 768px) {
+    html {
+        font-size: 55%;
+    }
+    
+    .container {
+        padding: 0 var(--spacing-lg);
+    }
+    
+    .navbar {
+        padding: var(--spacing-md) 0;
+    }
+    
+    .nav-menu {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        flex-direction: column;
+        background-color: var(--bg-white);
+        width: 80%;
+        height: 100vh;
+        z-index: var(--z-drawer);
+        padding-top: 80px;
+        transition: right var(--transition-medium);
+        box-shadow: -10px 0 30px rgba(0, 0, 0, 0.1);
+    }
+    
+    .nav-menu.active {
+        right: 0;
+    }
+    
+    .nav-link {
+        padding: var(--spacing-md) var(--spacing-xl);
+        width: 100%;
+        text-align: center;
+        font-size: 1.8rem;
+    }
+    
+    .menu-toggle {
+        display: block;
+    }
+    
+    .hero-stats {
+        flex-wrap: wrap;
+    }
+    
+    .stat-item {
+        flex: 0 0 calc(50% - var(--spacing-xl));
+        margin-bottom: var(--spacing-lg);
+    }
+    
+    .services-grid,
+    .products-grid {
+        grid-template-columns: repeat(auto-fill, minmax(100%, 1fr));
+    }
+    
+    .product-card {
+        max-width: 500px;
+        margin: 0 auto;
+    }
+    
+    .footer-columns {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-xl);
+    }
+}
+
+/* Mobile Large (up to 576px) */
+@media (max-width: 576px) {
+    html {
+        font-size: 52%;
+    }
+    
+    h1 {
+        font-size: 3.8rem;
+    }
+    
+    h2 {
+        font-size: 3.2rem;
+    }
+    
+    .container {
+        padding: 0 var(--spacing-md);
+    }
+    
+    section {
+        padding: var(--spacing-xl) 0;
+    }
+    
+    .section-header {
+        margin: 0 auto var(--spacing-xl);
+    }
+    
+    .hero-section {
+        padding: 120px 0 var(--spacing-xxl);
+    }
+    
+    .hero-buttons {
+        flex-direction: column;
+        gap: var(--spacing-md);
+    }
+    
+    .hero-buttons .btn {
+        width: 100%;
+    }
+    
+    .hero-content {
+        text-align: center;
+    }
+    
+    .service-card,
+    .product-card {
+        padding: var(--spacing-lg);
+    }
+    
+    .feature-item {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    
+    .feature-icon {
+        margin-right: 0;
+        margin-bottom: var(--spacing-md);
+    }
+    
+    .info-card {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    
+    .info-icon {
+        margin-right: 0;
+        margin-bottom: var(--spacing-md);
+    }
+    
+    .call-now {
+        display: none;
+    }
+    
+    .social-links {
+        justify-content: center;
+    }
+    
+    .nav-menu {
+        width: 100%;
+    }
+    
+    /* Modal responsive styles */
+    .product-modal-body {
+        grid-template-columns: 1fr;
+    }
+    
+    .product-modal-image {
+        min-height: 200px;
+    }
+    
+    .product-modal-cta {
+        flex-direction: column;
+    }
+    
+    .product-modal-cta .btn {
+        width: 100%;
+    }
+    
+    /* 3D Effect Adjustments for Mobile */
+    .product-3d-element {
+        transform: none !important;
+    }
+}
+
+/* Mobile Small (up to 375px) */
+@media (max-width: 375px) {
+    .service-icon {
+        width: 60px;
+        height: 60px;
+    }
+    
+    .service-icon i {
+        font-size: 2.4rem;
+    }
+    
+    .categories-filter {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        justify-content: flex-start;
+        padding-bottom: var(--spacing-md);
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    .category-btn {
+        flex: 0 0 auto;
+        white-space: nowrap;
+    }
+    
+    .stat-item {
+        flex: 0 0 100%;
+    }
+    
+    .about-card {
+        width: 280px;
+        height: 280px;
+    }
+}

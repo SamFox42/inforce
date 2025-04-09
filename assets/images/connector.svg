@@ -1,0 +1,42 @@
+<svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+  <!-- Connector base -->
+  <rect x="100" y="160" width="200" height="80" rx="5" ry="5" fill="#d1d1d1" />
+  <rect x="120" y="180" width="160" height="40" rx="3" ry="3" fill="#e8e8e8" />
+  
+  <!-- Type-C port -->
+  <rect x="150" y="180" width="100" height="40" rx="2" ry="2" fill="#2d2d2d" />
+  <rect x="155" y="185" width="90" height="30" rx="1" ry="1" fill="#1a1a1a" />
+  
+  <!-- Pins inside connector -->
+  <rect x="160" y="195" width="5" height="10" fill="#daa520" />
+  <rect x="170" y="195" width="5" height="10" fill="#daa520" />
+  <rect x="180" y="195" width="5" height="10" fill="#daa520" />
+  <rect x="190" y="195" width="5" height="10" fill="#daa520" />
+  <rect x="200" y="195" width="5" height="10" fill="#daa520" />
+  <rect x="210" y="195" width="5" height="10" fill="#daa520" />
+  <rect x="220" y="195" width="5" height="10" fill="#daa520" />
+  <rect x="230" y="195" width="5" height="10" fill="#daa520" />
+  
+  <!-- Connector flanges -->
+  <rect x="90" y="170" width="10" height="60" fill="#c0c0c0" />
+  <rect x="300" y="170" width="10" height="60" fill="#c0c0c0" />
+  
+  <!-- Connector mounting points -->
+  <circle cx="100" cy="170" r="5" fill="#a9a9a9" />
+  <circle cx="300" cy="170" r="5" fill="#a9a9a9" />
+  <circle cx="100" cy="230" r="5" fill="#a9a9a9" />
+  <circle cx="300" cy="230" r="5" fill="#a9a9a9" />
+  
+  <!-- Flex cable coming out -->
+  <path d="M100 200 C 50 200, 50 150, 80 130 L 120 130 L 125 135 L 90 135 C 70 150, 70 190, 100 195 Z" fill="#d4af37" />
+  
+  <!-- Circuit traces on flex -->
+  <path d="M90 133 L 118 133" stroke="#333" stroke-width="0.5" fill="none" />
+  <path d="M90 131 L 118 131" stroke="#333" stroke-width="0.5" fill="none" />
+  <path d="M90 129 L 118 129" stroke="#333" stroke-width="0.5" fill="none" />
+  <path d="M90 127 L 118 127" stroke="#333" stroke-width="0.5" fill="none" />
+  
+  <!-- Text markings -->
+  <text x="210" y="150" font-family="Arial" font-size="8" fill="#666">Type-C</text>
+  <text x="190" y="250" font-family="Arial" font-size="6" fill="#888">USB 3.1</text>
+</svg>

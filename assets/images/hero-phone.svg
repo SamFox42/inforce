@@ -1,0 +1,81 @@
+<svg viewBox="0 0 600 800" xmlns="http://www.w3.org/2000/svg">
+  <!-- Smartphone frame - main body -->
+  <rect x="150" y="50" width="300" height="600" rx="30" ry="30" fill="#1a1a1a" />
+  <rect x="160" y="70" width="280" height="560" rx="10" ry="10" fill="#0f0f0f" />
+  
+  <!-- Screen -->
+  <rect x="170" y="80" width="260" height="540" rx="5" ry="5" fill="#111111" />
+  <rect x="170" y="80" width="260" height="540" rx="5" ry="5" fill="url(#screenGradient)" />
+  
+  <!-- Phone display content -->
+  <rect x="170" y="80" width="260" height="70" fill="#2c3e50" />
+  <text x="190" y="120" font-family="Arial" font-weight="bold" font-size="14" fill="#ffffff">9:41 AM</text>
+  <circle cx="410" cy="115" r="10" fill="#ffffff" opacity="0.2" />
+  <text x="405" y="120" font-family="Arial" font-weight="bold" font-size="14" fill="#ffffff" text-anchor="middle">100%</text>
+  
+  <!-- App grid -->
+  <rect x="190" y="170" width="50" height="50" rx="10" ry="10" fill="#e74c3c" />
+  <rect x="260" y="170" width="50" height="50" rx="10" ry="10" fill="#3498db" />
+  <rect x="330" y="170" width="50" height="50" rx="10" ry="10" fill="#2ecc71" />
+  
+  <rect x="190" y="240" width="50" height="50" rx="10" ry="10" fill="#f1c40f" />
+  <rect x="260" y="240" width="50" height="50" rx="10" ry="10" fill="#9b59b6" />
+  <rect x="330" y="240" width="50" height="50" rx="10" ry="10" fill="#e67e22" />
+  
+  <rect x="190" y="310" width="50" height="50" rx="10" ry="10" fill="#1abc9c" />
+  <rect x="260" y="310" width="50" height="50" rx="10" ry="10" fill="#34495e" />
+  <rect x="330" y="310" width="50" height="50" rx="10" ry="10" fill="#7f8c8d" />
+  
+  <!-- Bottom dock -->
+  <rect x="190" y="540" width="50" height="50" rx="10" ry="10" fill="#16a085" />
+  <rect x="260" y="540" width="50" height="50" rx="10" ry="10" fill="#d35400" />
+  <rect x="330" y="540" width="50" height="50" rx="10" ry="10" fill="#8e44ad" />
+  
+  <!-- Physical buttons -->
+  <rect x="140" y="150" width="10" height="40" rx="3" ry="3" fill="#3a3a3a" />
+  <rect x="140" y="220" width="10" height="80" rx="3" ry="3" fill="#3a3a3a" />
+  <rect x="450" y="150" width="10" height="40" rx="3" ry="3" fill="#3a3a3a" />
+  
+  <!-- Camera -->
+  <circle cx="300" cy="50" r="8" fill="#1a1a1a" />
+  <circle cx="300" cy="50" r="6" fill="#0f0f0f" />
+  <circle cx="300" cy="50" r="4" fill="#000000" />
+  <circle cx="300" cy="50" r="2" fill="#333333" />
+  
+  <!-- Front speaker -->
+  <rect x="265" cy="50" width="70" height="5" rx="2.5" ry="2.5" fill="#333333" />
+  
+  <!-- Gradients and effects -->
+  <defs>
+    <linearGradient id="screenGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#000000" />
+      <stop offset="40%" stop-color="#16222A" />
+      <stop offset="100%" stop-color="#3A6073" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Screen reflections -->
+  <path d="M180 90 L200 110 L190 130" stroke="#ffffff" stroke-width="0.5" fill="none" opacity="0.2" />
+  <path d="M400 500 L390 520 L410 540" stroke="#ffffff" stroke-width="0.5" fill="none" opacity="0.2" />
+  
+  <!-- Component breakdown illustration -->
+  <!-- Display module -->
+  <rect x="450" y="150" width="100" height="80" rx="5" ry="5" fill="#396afc" opacity="0.1" stroke="#396afc" stroke-width="1" />
+  <text x="500" y="190" font-family="Arial" font-size="10" fill="#396afc" text-anchor="middle">Display</text>
+  <line x1="430" y1="170" x2="450" y2="180" stroke="#396afc" stroke-width="1" stroke-dasharray="5,5" />
+  
+  <!-- Battery -->
+  <rect x="450" y="250" width="100" height="80" rx="5" ry="5" fill="#396afc" opacity="0.1" stroke="#396afc" stroke-width="1" />
+  <text x="500" y="290" font-family="Arial" font-size="10" fill="#396afc" text-anchor="middle">Battery</text>
+  <line x1="430" y1="270" x2="450" y2="280" stroke="#396afc" stroke-width="1" stroke-dasharray="5,5" />
+  
+  <!-- Camera module -->
+  <rect x="450" y="350" width="100" height="80" rx="5" ry="5" fill="#396afc" opacity="0.1" stroke="#396afc" stroke-width="1" />
+  <text x="500" y="390" font-family="Arial" font-size="10" fill="#396afc" text-anchor="middle">Camera</text>
+  <line x1="312" y1="50" x2="450" y2="370" stroke="#396afc" stroke-width="1" stroke-dasharray="5,5" />
+  
+  <!-- Charging port -->
+  <rect x="450" y="450" width="100" height="80" rx="5" ry="5" fill="#396afc" opacity="0.1" stroke="#396afc" stroke-width="1" />
+  <text x="500" y="490" font-family="Arial" font-size="10" fill="#396afc" text-anchor="middle">Connector</text>
+  <line x1="300" y1="650" x2="450" y2="490" stroke="#396afc" stroke-width="1" stroke-dasharray="5,5" />
+</svg>

@@ -1,0 +1,51 @@
+<svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+  <!-- Camera module body -->
+  <rect x="100" y="100" width="200" height="200" rx="15" ry="15" fill="#2a2a2a" />
+  
+  <!-- Camera lens assembly -->
+  <circle cx="200" cy="200" r="80" fill="#1a1a1a" />
+  <circle cx="200" cy="200" r="70" fill="#131313" />
+  <circle cx="200" cy="200" r="60" fill="#0a0a0a" />
+  <circle cx="200" cy="200" r="50" fill="#050505" />
+  <circle cx="200" cy="200" r="40" fill="#000000" />
+  
+  <!-- Lens elements -->
+  <circle cx="200" cy="200" r="38" fill="url(#lensGradient)" />
+  <circle cx="200" cy="200" r="30" fill="#000000" opacity="0.5" />
+  <circle cx="200" cy="200" r="25" fill="#000000" opacity="0.6" />
+  <circle cx="200" cy="200" r="20" fill="#000000" opacity="0.7" />
+  
+  <!-- Lens reflections -->
+  <circle cx="180" cy="180" r="5" fill="#ffffff" opacity="0.8" />
+  <circle cx="185" cy="185" r="3" fill="#ffffff" opacity="0.6" />
+  <circle cx="190" cy="190" r="2" fill="#ffffff" opacity="0.4" />
+  
+  <!-- Flash LED -->
+  <circle cx="240" cy="150" r="12" fill="#333333" />
+  <circle cx="240" cy="150" r="10" fill="#ffffff" />
+  <circle cx="240" cy="150" r="5" fill="#fffff0" />
+  
+  <!-- Sensor contacts and circuitry -->
+  <rect x="130" y="310" width="140" height="10" rx="2" ry="2" fill="#ddd" />
+  <rect x="140" y="310" width="10" height="10" fill="#ccc" />
+  <rect x="160" y="310" width="10" height="10" fill="#ccc" />
+  <rect x="180" y="310" width="10" height="10" fill="#ccc" />
+  <rect x="200" y="310" width="10" height="10" fill="#ccc" />
+  <rect x="220" y="310" width="10" height="10" fill="#ccc" />
+  <rect x="240" y="310" width="10" height="10" fill="#ccc" />
+  
+  <!-- Text marking -->
+  <text x="110" y="330" font-family="Arial" font-size="8" fill="#aaa">12MP f/1.8 OIS</text>
+  <text x="270" y="330" font-family="Arial" font-size="7" fill="#999">S/N: X9Y8Z7</text>
+  
+  <!-- Gradients -->
+  <defs>
+    <linearGradient id="lensGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3a3a3a" />
+      <stop offset="25%" stop-color="#1a1a1a" />
+      <stop offset="50%" stop-color="#000000" />
+      <stop offset="75%" stop-color="#1a1a1a" />
+      <stop offset="100%" stop-color="#3a3a3a" />
+    </linearGradient>
+  </defs>
+</svg>
