@@ -16,16 +16,8 @@ fas fa-diagnoses|Диагностика устройств|Точная диаг
 fas fa-shield-alt|Установка защиты|Профессиональная установка защитных стекол и плёнок с гарантией качества.
 
 [PRODUCTS]
-Дисплеи|Дисплей для iPhone 12|Apple|12 500|iPhone 12, iPhone 12 Pro|https://master-mobile.ru/upload/resize_cache/webp/resize_cache/ram.watermark/ddb/483/317/1438885/903f369c50b36e4765fe2f54326af41b.webp|Оригинальный дисплей для iPhone 12 с высоким качеством цветопередачи и яркостью 650 нит. Быстрый отклик и прекрасная тактильная чувствительность гарантируют комфортное использование вашего устройства.
-Дисплеи|Дисплей для Samsung A52|Samsung|9 700|Samsung Galaxy A52, A52s|assets/images/products/samsung_display.jpg|Super AMOLED дисплей для Samsung Galaxy A52 с яркими цветами и глубоким черным цветом. Защита от царапин и отпечатков пальцев.
-Дисплеи|Дисплей для Xiaomi Redmi Note 10|Xiaomi|8 200|Xiaomi Redmi Note 10, Note 10 Pro|assets/images/products/xiaomi_display.jpg|Высококачественный IPS дисплей с разрешением Full HD+ для Xiaomi Redmi Note 10. Обеспечивает отличную цветопередачу при любом освещении.
-Аккумуляторы|Аккумулятор для iPhone 13|Apple|5 900|iPhone 13, iPhone 13 Pro|assets/images/products/iphone_battery.jpg|Литий-ионный аккумулятор для iPhone 13 емкостью 3227 мАч. Обеспечивает до 19 часов работы устройства при средней нагрузке.
-Аккумуляторы|Аккумулятор для Samsung S21|Samsung|4 200|Samsung Galaxy S21|assets/images/products/samsung_battery.jpg|Литий-полимерный аккумулятор Samsung с емкостью 4000 мАч для Galaxy S21. Быстрая зарядка и долгий срок службы.
-Аккумуляторы|Аккумулятор для Huawei P40|Huawei|3 800|Huawei P40, P40 Pro|assets/images/products/huawei_battery.jpg|Аккумулятор повышенной емкости для Huawei P40 с технологией Smart Power Management для оптимизации расхода энергии.
-Камеры|Основная камера для iPhone 12|Apple|8 500|iPhone 12|assets/images/products/iphone_camera.jpg|Основной модуль камеры для iPhone 12 с разрешением 12 Мп, диафрагмой f/1.6 и оптической стабилизацией. Отличное качество фото и видео даже при слабом освещении.
-Камеры|Основная камера для Xiaomi Mi 11|Xiaomi|7 800|Xiaomi Mi 11|assets/images/products/xiaomi_camera.jpg|Основная камера Xiaomi Mi 11 с разрешением 108 Мп и поддержкой съемки 8K видео. Фазовый автофокус и AI-улучшение изображений.
-Разъемы|Разъем зарядки для Huawei P40|Huawei|2 300|Huawei P40, P40 Pro|assets/images/products/huawei_connector.jpg|Разъем Type-C для Huawei P40 с улучшенным контактным механизмом. Обеспечивает стабильную зарядку и передачу данных.
-Разъемы|Разъем зарядки для iPhone 12|Apple|3 200|iPhone 12, 12 Pro, 12 Pro Max|assets/images/products/iphone_connector.jpg|Разъем Lightning для iPhone 12 с позолоченными контактами для лучшей проводимости и защитой от окисления.
+Задние крышки|Задняя крашка для Xiaomi Mi 9 SE|Xiaomi|1000|Xiaomi Mi 9 SE|https://i.ibb.co/b5vP5CvG/Whats-App-2025-04-09-23-20-45-c23487fe.jpg|https://i.ibb.co/b5vP5CvG/Whats-App-2025-04-09-23-20-45-c23487fe.jpg, https://i.ibb.co/b5vP5CvG/Whats-App-2025-04-09-23-20-45-c23487fe.jpg, https://i.ibb.co/b5vP5CvG/Whats-App-2025-04-09-23-20-45-c23487fe.jpg|Описание товара
+....|....|....|1|...|...|...|...
 
 [FEATURES]
 fas fa-check-circle|Качественные запчасти|Мы работаем только с проверенными поставщиками, предлагая оригинальные или высококачественные совместимые запчасти.
