@@ -269,29 +269,30 @@ class ConfigLoader {
                         });
                         break;
                         
-                    case 'PRODUCTS':
-                        lines.forEach(line => {
-                            const parts = line.split('|').map(part => part.trim());
-                            if (parts.length >= 5) {
-                                const product = {
-                                    category: parts[0],
-                                    name: parts[1],
-                                    brand: parts[2],
-                                    price: parts[3],
-                                    compatibility: parts[4],
-                                    image: parts[5] || '',
-                                    description: parts[6] || 'Качественная запчасть для вашего устройства. Полная совместимость с указанными моделями.'
-                                };
-                                config.products.push(product);
-                                
-                                // Add category if not already in the list
-                                if (!config.categories.includes(parts[0])) {
-                                    config.categories.push(parts[0]);
+                        case 'PRODUCTS':
+                            lines.forEach(line => {
+                                const parts = line.split('|').map(part => part.trim());
+                                if (parts.length >= 6) { // Учитываем минимум 6 полей (без описания — оно опционально)
+                                    const product = {
+                                        category: parts[0],
+                                        name: parts[1],
+                                        brand: parts[2],
+                                        price: parts[3],
+                                        compatibility: parts[4],
+                                        mainImage: parts[5], // Главное изображение
+                                        additionalImages: parts[6] ? parts[6].split(',').map(img => img.trim()) : [], // Дополнительные изображения
+                                        description: parts[7] || 'Качественная запчасть для вашего устройства. Полная совместимость с указанными моделями.'
+                                    };
+                                    config.products.push(product);
+                                    
+                                    // Add category if not already in the list
+                                    if (!config.categories.includes(parts[0])) {
+                                        config.categories.push(parts[0]);
+                                    }
                                 }
-                            }
-                        });
-                        break;
-                        
+                            });
+                            break;
+
                     case 'FEATURES':
                         lines.forEach(line => {
                             const parts = line.split('|').map(part => part.trim());
@@ -560,69 +561,72 @@ class ConfigLoader {
      * Populate the products section
      */
     populateProducts() {
-        const productsContainer = document.getElementById('products-container');
-        if (!productsContainer || !this.configData.products) return;
-        
-        // Clear skeleton loaders
-        productsContainer.innerHTML = '';
-        
-        // Create product cards
-        this.configData.products.forEach((product, index) => {
-            const productCard = document.createElement('div');
-            productCard.className = 'product-card fade-up';
-            productCard.classList.add(`delay-${index % 5 + 1}`);
-            productCard.setAttribute('data-category', product.category);
-            productCard.setAttribute('data-product-index', index);
-            productCard.setAttribute('tabindex', '0');  // Make focusable for accessibility
-            
-            // Create product image based on product category and brand
-            const svgIcon = this.getProductSvgIcon(product.category, product.brand);
-            
-            productCard.innerHTML = `
-                <span class="product-brand">${product.brand}</span>
-                <div class="product-image product-3d-wrap">
-                    <div class="product-3d-element">
-                        ${svgIcon}
+    const productsContainer = document.getElementById('products-container');
+    if (!productsContainer || !this.configData.products) return;
+
+    productsContainer.innerHTML = '';
+
+    this.configData.products.forEach((product, index) => {
+        const productCard = document.createElement('div');
+        productCard.className = 'product-card fade-up';
+        productCard.classList.add(`delay-${index % 5 + 1}`);
+        productCard.setAttribute('data-category', product.category);
+        productCard.setAttribute('data-product-index', index);
+        productCard.setAttribute('tabindex', '0');
+
+        // Создаём слайдер для изображений
+        const images = [product.mainImage, ...product.additionalImages];
+        let sliderHTML = '';
+        if (images.length > 1) {
+            sliderHTML = `
+                <div class="product-slider">
+                    <div class="product-slider-track" style="width: ${images.length * 100}%">
+                        ${images.map(img => `
+                            <div class="product-slider-slide" style="width: ${100 / images.length}%">
+                                <img src="${img}" alt="${product.name}" class="product-image-svg" />
+                            </div>
+                        `).join('')}
                     </div>
-                </div>
-                <div class="product-details">
-                    <h3>${product.name}</h3>
-                    <div class="product-price">${product.price} ₽</div>
-                    <div class="product-compatibility">Совместимость: ${product.compatibility}</div>
-                    <div class="product-actions">
-                        <button class="product-details-btn">Подробнее</button>
-                    </div>
+                    <button class="slider-nav prev"><i class="fas fa-chevron-left"></i></button>
+                    <button class="slider-nav next"><i class="fas fa-chevron-right"></i></button>
                 </div>
             `;
-            
-            // Add 3D effect on hover/touch
-            this.add3DEffect(productCard);
-            
-            // Add click event to show details modal
-            productCard.addEventListener('click', (e) => {
-                // Don't open modal if clicking on button (button has its own handler)
-                if (e.target.classList.contains('product-details-btn')) return;
-                
+        } else {
+            sliderHTML = `<div class="product-image">${this.getProductSvgIcon(product.category, product.brand, product.mainImage)}</div>`;
+        }
+
+        productCard.innerHTML = `
+            <span class="product-brand">${product.brand}</span>
+            ${sliderHTML}
+            <div class="product-details">
+                <h3>${product.name}</h3>
+                <div class="product-price">${product.price} ₽</div>
+                <div class="product-compatibility">Совместимость: ${product.compatibility}</div>
+                <div class="product-actions">
+                    <button class="product-details-btn">Подробнее</button>
+                </div>
+            </div>
+        `;
+
+        this.add3DEffect(productCard);
+        this.addSliderControls(productCard, images.length); // Добавляем управление слайдером
+
+        productCard.addEventListener('click', (e) => {
+            if (e.target.classList.contains('product-details-btn') || e.target.classList.contains('slider-nav')) return;
+            this.showProductDetails(product);
+        });
+
+        const detailsBtn = productCard.querySelector('.product-details-btn');
+        if (detailsBtn) {
+            detailsBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
                 this.showProductDetails(product);
             });
-            
-            // Add specific handler for details button
-            const detailsBtn = productCard.querySelector('.product-details-btn');
-            if (detailsBtn) {
-                detailsBtn.addEventListener('click', (e) => {
-                    e.stopPropagation(); // Prevent the card's click handler from firing
-                    this.showProductDetails(product);
-                });
-            }
-            
-            productsContainer.appendChild(productCard);
-        });
-        
-        // Create product details modal if it doesn't exist
-        if (!document.getElementById('product-details-modal')) {
-            this.createProductModal();
         }
-    }
+
+        productsContainer.appendChild(productCard);
+    });
+}
     
     /**
      * Add 3D tilt effect to product card if enabled in config
@@ -679,7 +683,7 @@ class ConfigLoader {
             const percentX = (mouseX - centerX) / centerX;
             const percentY = (mouseY - centerY) / centerY;
             
-            const maxRotate = 15; // Maximum rotation in degrees
+            const maxRotate = 0; // Maximum rotation in degrees
             
             cardElement.style.transform = `
                 rotateX(${-percentY * maxRotate}deg) 
@@ -717,7 +721,7 @@ class ConfigLoader {
                 const percentX = (touchX - centerX) / centerX;
                 const percentY = (touchY - centerY) / centerY;
                 
-                const maxRotate = 15;
+                const maxRotate = 0;
                 
                 cardElement.style.transform = `
                     rotateX(${-percentY * maxRotate}deg) 
@@ -731,6 +735,32 @@ class ConfigLoader {
             cardElement.style.transition = 'transform 0.5s ease-out';
             cardElement.style.transform = 'rotateX(0) rotateY(0) scale3d(1, 1, 1)';
         }
+    }
+
+    addSliderControls(card, totalSlides) {
+        if (totalSlides <= 1) return;
+    
+        const sliderTrack = card.querySelector('.product-slider-track');
+        const prevBtn = card.querySelector('.slider-nav.prev');
+        const nextBtn = card.querySelector('.slider-nav.next');
+        let currentSlide = 0;
+    
+        const updatePosition = () => {
+            const translateX = currentSlide * (-100 / totalSlides);
+            sliderTrack.style.transform = `translateX(${translateX}%)`;
+        };
+    
+        prevBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            currentSlide = Math.max(0, currentSlide - 1);
+            updatePosition();
+        });
+    
+        nextBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            currentSlide = Math.min(totalSlides - 1, currentSlide + 1);
+            updatePosition();
+        });
     }
     
     /**
@@ -756,7 +786,7 @@ class ConfigLoader {
                         <div class="product-modal-description"></div>
                         <div class="product-modal-features"></div>
                         <div class="product-modal-cta">
-                            <button class="btn btn-primary">Заказать</button>
+                            <button class="btn btn-primary">Заказать через Авито</button>
                             <button class="btn btn-secondary modal-close-btn">Закрыть</button>
                         </div>
                     </div>
@@ -790,43 +820,55 @@ class ConfigLoader {
     showProductDetails(product) {
         const modal = document.getElementById('product-details-modal');
         if (!modal) return;
-        
-        // Get elements
+    
         const title = modal.querySelector('.product-modal-title');
         const brand = modal.querySelector('.product-modal-brand');
         const price = modal.querySelector('.product-modal-price');
         const compatibility = modal.querySelector('.product-modal-compatibility');
         const description = modal.querySelector('.product-modal-description');
         const image = modal.querySelector('.product-modal-image');
-        
-        // Set content
+    
         title.textContent = product.name;
         brand.innerHTML = `<strong>Бренд:</strong> ${product.brand}`;
         price.innerHTML = `<strong>Цена:</strong> <span class="highlight">${product.price} ₽</span>`;
         compatibility.innerHTML = `<strong>Совместимость:</strong> ${product.compatibility}`;
         
-        // Add product image with animation based on config
-        image.innerHTML = this.getProductSvgIcon(product.category, product.brand);
-        
-        // Apply rotation animation if enabled
-        if (this.configData.siteConfig.enableProductRotation) {
-            const productImage = image.querySelector('img');
-            if (productImage) {
-                productImage.classList.add('rotating-product');
-            }
+        // Описание в прокручиваемом блоке
+        description.innerHTML = `
+            <div class="description-scroll">
+                <p>${product.description}</p>
+            </div>
+        `;
+    
+        const images = [product.mainImage, ...product.additionalImages];
+        let sliderHTML = '';
+        if (images.length > 1) {
+            sliderHTML = `
+                <div class="product-slider">
+                    <div class="product-slider-track" style="width: ${images.length * 100}%">
+                        ${images.map(img => `
+                            <div class="product-slider-slide" style="width: ${100 / images.length}%">
+                                <img src="${img}" alt="${product.name}" class="product-image-svg" />
+                            </div>
+                        `).join('')}
+                    </div>
+                    <button class="slider-nav prev"><i class="fas fa-chevron-left"></i></button>
+                    <button class="slider-nav next"><i class="fas fa-chevron-right"></i></button>
+                </div>
+            `;
+        } else {
+            sliderHTML = this.getProductSvgIcon(product.category, product.brand, product.mainImage);
         }
-        
-        // Additional details - using product properties or defaults
-        const productDetails = product.description || 'Качественная запчасть для вашего устройства. Полная совместимость с указанными моделями.';
-        description.innerHTML = `<p>${productDetails}</p>`;
-        
-        // Show the modal with animation
+        image.innerHTML = sliderHTML;
+    
+        if (images.length > 1) {
+            this.addSliderControls(modal.querySelector('.product-modal-image'), images.length);
+        }
+    
         modal.style.display = 'block';
         setTimeout(() => {
             modal.classList.add('active');
         }, 10);
-        
-        // Prevent body scrolling
         document.body.style.overflow = 'hidden';
     }
     

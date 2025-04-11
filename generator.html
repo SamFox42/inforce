@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Генератор конфига товаров</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .form-container {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+            font-weight: bold;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        textarea {
+            height: 100px;
+            resize: vertical;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #product-list {
+            margin-top: 20px;
+        }
+        .product-item {
+            background: #fff;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-bottom: 10px;
+            position: relative;
+        }
+        .product-item button {
+            background-color: #dc3545;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            padding: 5px 10px;
+        }
+        .product-item button:hover {
+            background-color: #c82333;
+        }
+        #export-config {
+            width: 100%;
+            height: 150px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Генератор конфига товаров</h1>
+
+    <div class="form-container">
+        <h2>Добавить товар</h2>
+        <form id="product-form">
+            <label for="category">Категория:</label>
+            <input type="text" id="category" placeholder="Например: Задние крышки" required>
+
+            <label for="name">Название:</label>
+            <input type="text" id="name" placeholder="Например: Задняя крышка для Samsung Galaxy Note 10 Plus" required>
+
+            <label for="brand">Бренд:</label>
+            <input type="text" id="brand" placeholder="Например: Samsung" required>
+
+            <label for="price">Цена (в рублях):</label>
+            <input type="number" id="price" placeholder="Например: 1500" required>
+
+            <label for="compatibility">Совместимость:</label>
+            <input type="text" id="compatibility" placeholder="Например: Samsung Galaxy Note 10 Plus" required>
+
+            <label for="main-image">Основное изображение (URL):</label>
+            <input type="text" id="main-image" placeholder="Например: assets/images/products/QrxNlKy.jpeg" required>
+
+            <label for="additional-images">Дополнительные изображения (через запятую):</label>
+            <input type="text" id="additional-images" placeholder="Например: assets/images/products/9qRQn7E.jpeg, assets/images/products/0W8vRAP.jpeg">
+
+            <label for="description">Описание:</label>
+            <textarea id="description" placeholder="Опишите товар..." required></textarea>
+
+            <button type="submit">Добавить товар</button>
+        </form>
+    </div>
+
+    <div id="product-list">
+        <h2>Список товаров</h2>
+        <!-- Сюда будут добавляться товары -->
+    </div>
+
+    <div class="form-container">
+        <h2>Импорт/Экспорт</h2>
+        <button id="export-btn">Экспортировать конфиг</button>
+        <button id="import-btn">Импортировать конфиг</button>
+        <textarea id="export-config" placeholder="Скопируйте сюда конфиг для импорта или получите результат экспорта"></textarea>
+    </div>
+
+    <script>
+        let products = [];
+
+        // Добавление товара
+        document.getElementById('product-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const product = {
+                category: document.getElementById('category').value,
+                name: document.getElementById('name').value,
+                brand: document.getElementById('brand').value,
+                price: document.getElementById('price').value,
+                compatibility: document.getElementById('compatibility').value,
+                mainImage: document.getElementById('main-image').value,
+                additionalImages: document.getElementById('additional-images').value,
+                description: document.getElementById('description').value
+            };
+
+            products.push(product);
+            displayProducts();
+            this.reset();
+        });
+
+        // Отображение списка товаров
+        function displayProducts() {
+            const productList = document.getElementById('product-list');
+            productList.innerHTML = '<h2>Список товаров</h2>';
+
+            products.forEach((product, index) => {
+                const productItem = document.createElement('div');
+                productItem.className = 'product-item';
+                productItem.innerHTML = `
+                    <p><strong>${product.name}</strong> (${product.category}) - ${product.price} ₽</p>
+                    <button onclick="removeProduct(${index})">Удалить</button>
+                `;
+                productList.appendChild(productItem);
+            });
+        }
+
+        // Удаление товара
+        function removeProduct(index) {
+            products.splice(index, 1);
+            displayProducts();
+        }
+
+        // Экспорт конфига
+        document.getElementById('export-btn').addEventListener('click', function() {
+            const config = `[PRODUCTS]\n${products.map(p => 
+                `${p.category}|${p.name}|${p.brand}|${p.price}|${p.compatibility}|${p.mainImage}|${p.additionalImages}|${p.description}`
+            ).join('\n')}`;
+            document.getElementById('export-config').value = config;
+        });
+
+        // Импорт конфига
+        document.getElementById('import-btn').addEventListener('click', function() {
+            const configText = document.getElementById('export-config').value.trim();
+            if (!configText.startsWith('[PRODUCTS]')) {
+                alert('Неверный формат конфига. Начните с [PRODUCTS]');
+                return;
+            }
+
+            products = [];
+            const lines = configText.split('\n').slice(1); // Пропускаем заголовок [PRODUCTS]
+            lines.forEach(line => {
+                const parts = line.split('|').map(part => part.trim());
+                if (parts.length >= 6) {
+                    products.push({
+                        category: parts[0],
+                        name: parts[1],
+                        brand: parts[2],
+                        price: parts[3],
+                        compatibility: parts[4],
+                        mainImage: parts[5],
+                        additionalImages: parts[6] || '',
+                        description: parts[7] || ''
+                    });
+                }
+            });
+            displayProducts();
+            document.getElementById('export-config').value = ''; // Очистка после импорта
+        });
+    </script>
+</body>
+</html>
