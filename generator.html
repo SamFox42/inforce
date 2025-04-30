@@ -135,7 +135,7 @@
         // Добавление товара
         document.getElementById('product-form').addEventListener('submit', function(e) {
             e.preventDefault();
-
+        
             const product = {
                 category: document.getElementById('category').value,
                 name: document.getElementById('name').value,
@@ -144,9 +144,10 @@
                 compatibility: document.getElementById('compatibility').value,
                 mainImage: document.getElementById('main-image').value,
                 additionalImages: document.getElementById('additional-images').value,
-                description: document.getElementById('description').value
+                description: document.getElementById('description').value,
+                avitoLink: document.getElementById('avito-link').value // Новое поле
             };
-
+        
             products.push(product);
             displayProducts();
             this.reset();
@@ -177,7 +178,7 @@
         // Экспорт конфига
         document.getElementById('export-btn').addEventListener('click', function() {
             const config = `[PRODUCTS]\n${products.map(p => 
-                `${p.category}|${p.name}|${p.brand}|${p.price}|${p.compatibility}|${p.mainImage}|${p.additionalImages}|${p.description}`
+                `${p.category}|${p.name}|${p.brand}|${p.price}|${p.compatibility}|${p.mainImage}|${p.additionalImages}|${p.description}|${p.avitoLink}`
             ).join('\n')}`;
             document.getElementById('export-config').value = config;
         });
@@ -189,7 +190,7 @@
                 alert('Неверный формат конфига. Начните с [PRODUCTS]');
                 return;
             }
-
+        
             products = [];
             const lines = configText.split('\n').slice(1); // Пропускаем заголовок [PRODUCTS]
             lines.forEach(line => {
@@ -203,7 +204,8 @@
                         compatibility: parts[4],
                         mainImage: parts[5],
                         additionalImages: parts[6] || '',
-                        description: parts[7] || ''
+                        description: parts[7] || '',
+                        avitoLink: parts[8] || '' // Новое поле
                     });
                 }
             });
