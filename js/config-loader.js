@@ -272,16 +272,17 @@ class ConfigLoader {
                         case 'PRODUCTS':
                             lines.forEach(line => {
                                 const parts = line.split('|').map(part => part.trim());
-                                if (parts.length >= 6) { // Учитываем минимум 6 полей (без описания — оно опционально)
+                                if (parts.length >= 6) { // Учитываем минимум 6 полей
                                     const product = {
                                         category: parts[0],
                                         name: parts[1],
                                         brand: parts[2],
                                         price: parts[3],
                                         compatibility: parts[4],
-                                        mainImage: parts[5], // Главное изображение
-                                        additionalImages: parts[6] ? parts[6].split(',').map(img => img.trim()) : [], // Дополнительные изображения
-                                        description: parts[7] || 'Качественная запчасть для вашего устройства. Полная совместимость с указанными моделями.'
+                                        mainImage: parts[5],
+                                        additionalImages: parts[6] ? parts[6].split(',').map(img => img.trim()) : [],
+                                        description: parts[7] || 'Качественная запчасть для вашего устройства. Полная совместимость с указанными моделями.',
+                                        avitoLink: parts[8] || '' // Новое поле для ссылки на Avito
                                     };
                                     config.products.push(product);
                                     
