@@ -96,70 +96,80 @@ class ConfigLoader {
                     name: 'Дисплей для iPhone 12',
                     brand: 'Apple',
                     price: '12 500',
-                    compatibility: 'iPhone 12, iPhone 12 Pro'
+                    compatibility: 'iPhone 12, iPhone 12 Pro',
+                    avitoLink: ''
                 },
                 {
                     category: 'Дисплеи',
                     name: 'Дисплей для Samsung A52',
                     brand: 'Samsung',
                     price: '9 700',
-                    compatibility: 'Samsung Galaxy A52, A52s'
+                    compatibility: 'Samsung Galaxy A52, A52s',
+                    avitoLink: ''
                 },
                 {
                     category: 'Дисплеи',
                     name: 'Дисплей для Xiaomi Redmi Note 10',
                     brand: 'Xiaomi',
                     price: '8 200',
-                    compatibility: 'Xiaomi Redmi Note 10, Note 10 Pro'
+                    compatibility: 'Xiaomi Redmi Note 10, Note 10 Pro',
+                    avitoLink: ''
                 },
                 {
                     category: 'Аккумуляторы',
                     name: 'Аккумулятор для iPhone 13',
                     brand: 'Apple',
                     price: '5 900',
-                    compatibility: 'iPhone 13, iPhone 13 Pro'
+                    compatibility: 'iPhone 13, iPhone 13 Pro',
+                    avitoLink: ''
                 },
                 {
                     category: 'Аккумуляторы',
                     name: 'Аккумулятор для Samsung S21',
                     brand: 'Samsung',
                     price: '4 200',
-                    compatibility: 'Samsung Galaxy S21'
+                    compatibility: 'Samsung Galaxy S21',
+                    avitoLink: ''
                 },
                 {
                     category: 'Аккумуляторы',
                     name: 'Аккумулятор для Huawei P40',
                     brand: 'Huawei',
                     price: '3 800',
-                    compatibility: 'Huawei P40, P40 Pro'
+                    compatibility: 'Huawei P40, P40 Pro',
+                    avitoLink: ''
                 },
                 {
                     category: 'Камеры',
                     name: 'Основная камера для iPhone 12',
                     brand: 'Apple',
                     price: '8 500',
-                    compatibility: 'iPhone 12'
+                    compatibility: 'iPhone 12',
+                    avitoLink: ''
                 },
                 {
                     category: 'Камеры',
                     name: 'Основная камера для Xiaomi Mi 11',
                     brand: 'Xiaomi',
                     price: '7 800',
-                    compatibility: 'Xiaomi Mi 11'
+                    compatibility: 'Xiaomi Mi 11',
+                    avitoLink: ''
                 },
                 {
                     category: 'Разъемы',
                     name: 'Разъем зарядки для Huawei P40',
                     brand: 'Huawei',
                     price: '2 300',
-                    compatibility: 'Huawei P40, P40 Pro'
+                    compatibility: 'Huawei P40, P40 Pro',
+                    avitoLink: ''
                 },
                 {
                     category: 'Разъемы',
                     name: 'Разъем зарядки для iPhone 12',
                     brand: 'Apple',
                     price: '3 200',
-                    compatibility: 'iPhone 12, 12 Pro, 12 Pro Max'
+                    compatibility: 'iPhone 12, 12 Pro, 12 Pro Max',
+                    avitoLink: ''
                 }
             ],
             categories: ['Дисплеи', 'Аккумуляторы', 'Камеры', 'Разъемы'],
@@ -269,30 +279,30 @@ class ConfigLoader {
                         });
                         break;
                         
-                        case 'PRODUCTS':
-                            lines.forEach(line => {
-                                const parts = line.split('|').map(part => part.trim());
-                                if (parts.length >= 6) { // Учитываем минимум 6 полей
-                                    const product = {
-                                        category: parts[0],
-                                        name: parts[1],
-                                        brand: parts[2],
-                                        price: parts[3],
-                                        compatibility: parts[4],
-                                        mainImage: parts[5],
-                                        additionalImages: parts[6] ? parts[6].split(',').map(img => img.trim()) : [],
-                                        description: parts[7] || 'Качественная запчасть для вашего устройства. Полная совместимость с указанными моделями.',
-                                        avitoLink: parts[8] || '' // Новое поле для ссылки на Avito
-                                    };
-                                    config.products.push(product);
-                                    
-                                    // Add category if not already in the list
-                                    if (!config.categories.includes(parts[0])) {
-                                        config.categories.push(parts[0]);
-                                    }
+                    case 'PRODUCTS':
+                        lines.forEach(line => {
+                            const parts = line.split('|').map(part => part.trim());
+                            if (parts.length >= 6) {
+                                const product = {
+                                    category: parts[0],
+                                    name: parts[1],
+                                    brand: parts[2],
+                                    price: parts[3],
+                                    compatibility: parts[4],
+                                    mainImage: parts[5],
+                                    additionalImages: parts[6] ? parts[6].split(',').map(img => img.trim()) : [],
+                                    description: parts[7] || 'Качественная запчасть для вашего устройства. Полная совместимость с указанными моделями.',
+                                    avitoLink: parts[8] || ''
+                                };
+                                config.products.push(product);
+                                
+                                // Add category if not already in the list
+                                if (!config.categories.includes(parts[0])) {
+                                    config.categories.push(parts[0]);
                                 }
-                            });
-                            break;
+                            }
+                        });
+                        break;
 
                     case 'FEATURES':
                         lines.forEach(line => {
@@ -562,72 +572,72 @@ class ConfigLoader {
      * Populate the products section
      */
     populateProducts() {
-    const productsContainer = document.getElementById('products-container');
-    if (!productsContainer || !this.configData.products) return;
+        const productsContainer = document.getElementById('products-container');
+        if (!productsContainer || !this.configData.products) return;
 
-    productsContainer.innerHTML = '';
+        productsContainer.innerHTML = '';
 
-    this.configData.products.forEach((product, index) => {
-        const productCard = document.createElement('div');
-        productCard.className = 'product-card fade-up';
-        productCard.classList.add(`delay-${index % 5 + 1}`);
-        productCard.setAttribute('data-category', product.category);
-        productCard.setAttribute('data-product-index', index);
-        productCard.setAttribute('tabindex', '0');
+        this.configData.products.forEach((product, index) => {
+            const productCard = document.createElement('div');
+            productCard.className = 'product-card fade-up';
+            productCard.classList.add(`delay-${index % 5 + 1}`);
+            productCard.setAttribute('data-category', product.category);
+            productCard.setAttribute('data-product-index', index);
+            productCard.setAttribute('tabindex', '0');
 
-        // Создаём слайдер для изображений
-        const images = [product.mainImage, ...product.additionalImages];
-        let sliderHTML = '';
-        if (images.length > 1) {
-            sliderHTML = `
-                <div class="product-slider">
-                    <div class="product-slider-track" style="width: ${images.length * 100}%">
-                        ${images.map(img => `
-                            <div class="product-slider-slide" style="width: ${100 / images.length}%">
-                                <img src="${img}" alt="${product.name}" class="product-image-svg" />
-                            </div>
-                        `).join('')}
+            // Создаём слайдер для изображений
+            const images = [product.mainImage, ...product.additionalImages];
+            let sliderHTML = '';
+            if (images.length > 1) {
+                sliderHTML = `
+                    <div class="product-slider">
+                        <div class="product-slider-track" style="width: ${images.length * 100}%">
+                            ${images.map(img => `
+                                <div class="product-slider-slide" style="width: ${100 / images.length}%">
+                                    <img src="${img}" alt="${product.name}" class="product-image-svg" />
+                                </div>
+                            `).join('')}
+                        </div>
+                        <button class="slider-nav prev"><i class="fas fa-chevron-left"></i></button>
+                        <button class="slider-nav next"><i class="fas fa-chevron-right"></i></button>
                     </div>
-                    <button class="slider-nav prev"><i class="fas fa-chevron-left"></i></button>
-                    <button class="slider-nav next"><i class="fas fa-chevron-right"></i></button>
+                `;
+            } else {
+                sliderHTML = `<div class="product-image">${this.getProductSvgIcon(product.category, product.brand, product.mainImage)}</div>`;
+            }
+
+            productCard.innerHTML = `
+                <span class="product-brand">${product.brand}</span>
+                ${sliderHTML}
+                <div class="product-details">
+                    <h3>${product.name}</h3>
+                    <div class="product-price">${product.price} ₽</div>
+                    <div class="product-compatibility">Совместимость: ${product.compatibility}</div>
+                    <div class="product-actions">
+                        <button class="product-details-btn">Подробнее</button>
+                    </div>
                 </div>
             `;
-        } else {
-            sliderHTML = `<div class="product-image">${this.getProductSvgIcon(product.category, product.brand, product.mainImage)}</div>`;
-        }
 
-        productCard.innerHTML = `
-            <span class="product-brand">${product.brand}</span>
-            ${sliderHTML}
-            <div class="product-details">
-                <h3>${product.name}</h3>
-                <div class="product-price">${product.price} ₽</div>
-                <div class="product-compatibility">Совместимость: ${product.compatibility}</div>
-                <div class="product-actions">
-                    <button class="product-details-btn">Подробнее</button>
-                </div>
-            </div>
-        `;
+            this.add3DEffect(productCard);
+            this.addSliderControls(productCard, images.length);
 
-        this.add3DEffect(productCard);
-        this.addSliderControls(productCard, images.length); // Добавляем управление слайдером
-
-        productCard.addEventListener('click', (e) => {
-            if (e.target.classList.contains('product-details-btn') || e.target.classList.contains('slider-nav')) return;
-            this.showProductDetails(product);
-        });
-
-        const detailsBtn = productCard.querySelector('.product-details-btn');
-        if (detailsBtn) {
-            detailsBtn.addEventListener('click', (e) => {
-                e.stopPropagation();
+            productCard.addEventListener('click', (e) => {
+                if (e.target.classList.contains('product-details-btn') || e.target.classList.contains('slider-nav')) return;
                 this.showProductDetails(product);
             });
-        }
 
-        productsContainer.appendChild(productCard);
-    });
-}
+            const detailsBtn = productCard.querySelector('.product-details-btn');
+            if (detailsBtn) {
+                detailsBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    this.showProductDetails(product);
+                });
+            }
+
+            productsContainer.appendChild(productCard);
+        });
+    }
     
     /**
      * Add 3D tilt effect to product card if enabled in config
@@ -786,10 +796,7 @@ class ConfigLoader {
                         <div class="product-modal-compatibility"></div>
                         <div class="product-modal-description"></div>
                         <div class="product-modal-features"></div>
-                        <div class="product-modal-cta">
-                            <button class="btn btn-primary">Заказать через Авито</button>
-                            <button class="btn btn-secondary modal-close-btn">Закрыть</button>
-                        </div>
+                        <div class="product-modal-cta"></div>
                     </div>
                 </div>
             </div>
@@ -799,11 +806,9 @@ class ConfigLoader {
         
         // Add event listeners for closing the modal
         const closeBtn = modal.querySelector('.product-modal-close');
-        const closeBtn2 = modal.querySelector('.modal-close-btn');
         const backdrop = modal.querySelector('.product-modal-backdrop');
         
         closeBtn.addEventListener('click', () => this.closeProductModal());
-        closeBtn2.addEventListener('click', () => this.closeProductModal());
         backdrop.addEventListener('click', () => this.closeProductModal());
         
         // Close on escape key
@@ -834,7 +839,6 @@ class ConfigLoader {
         price.innerHTML = `<strong>Цена:</strong> <span class="highlight">${product.price} ₽</span>`;
         compatibility.innerHTML = `<strong>Совместимость:</strong> ${product.compatibility}`;
         
-        // Описание в прокручиваемом блоке
         description.innerHTML = `
             <div class="description-scroll">
                 <p>${product.description}</p>
@@ -866,6 +870,12 @@ class ConfigLoader {
             this.addSliderControls(modal.querySelector('.product-modal-image'), images.length);
         }
     
+        const ctaContainer = modal.querySelector('.product-modal-cta');
+        ctaContainer.innerHTML = `
+            <a href="${product.avitoLink || '#'}" class="btn btn-primary" ${product.avitoLink ? '' : 'disabled'}>Заказать через Авито</a>
+            <button class="btn btn-secondary modal-close-btn">Закрыть</button>
+        `;
+    
         modal.style.display = 'block';
         setTimeout(() => {
             modal.classList.add('active');
@@ -883,25 +893,10 @@ class ConfigLoader {
         modal.classList.remove('active');
         setTimeout(() => {
             modal.style.display = 'none';
-            // Re-enable body scrolling
             document.body.style.overflow = '';
         }, 300);
     }
 
-    /**
-     * Get realistic product image based on category
-     * @param {string} category - Product category
-     * @returns {string} - Image HTML
-     */
-    /**
-     * Convert a string to camelCase
-     * @param {string} str - String to convert
-     * @returns {string} - camelCase string
-     */
-    camelCase(str) {
-        return str.replace(/[-_]([a-z])/g, (g) => g[1].toUpperCase());
-    }
-    
     /**
      * Get product image based on product data
      * @param {string} category - Product category
@@ -910,12 +905,10 @@ class ConfigLoader {
      * @returns {string} - Image HTML
      */
     getProductSvgIcon(category, brand = '', customImage = '') {
-        // If product has a custom image defined in config, use it
         if (customImage) {
             return `<img src="${customImage}" alt="${category} ${brand}" class="product-image-svg" />`;
         }
         
-        // Find if this specific product exists in products array to get its image
         if (this.configData && this.configData.products) {
             const product = this.configData.products.find(p => 
                 p.category === category && p.brand === brand && p.image
@@ -926,7 +919,6 @@ class ConfigLoader {
             }
         }
         
-        // Fallback to default category-based image selection
         const brandLower = brand ? brand.toLowerCase().replace(/\s+/g, '_') : '';
         
         switch (category) {
@@ -1260,6 +1252,15 @@ class ConfigLoader {
                 footerWhatsappLink.parentElement.href = this.configData.socialLinks.whatsapp;
             }
         }
+    }
+
+    /**
+     * Convert a string to camelCase
+     * @param {string} str - String to convert
+     * @returns {string} - camelCase string
+     */
+    camelCase(str) {
+        return str.replace(/[-_]([a-z])/g, (g) => g[1].toUpperCase());
     }
 }
 
