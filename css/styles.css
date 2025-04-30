@@ -2150,3 +2150,8 @@ section {
 .description-scroll::-webkit-scrollbar-thumb:hover {
     background: var(--primary-dark);
 }
+.btn-primary[disabled] {
+    opacity: 0.6;
+    cursor: not-allowed;
+    pointer-events: none;
+}
