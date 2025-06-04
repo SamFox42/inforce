@@ -566,6 +566,19 @@ class ConfigLoader {
             
             categoriesFilter.appendChild(categoryBtn);
         });
+        // Add click event listeners to category buttons
+        const categoryButtons = categoriesFilter.querySelectorAll('.category-btn');
+        categoryButtons.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                // Remove active from all
+                categoryButtons.forEach(b => b.classList.remove('active'));
+                // Add active to this one
+                btn.classList.add('active');
+                // Call filter
+                this.filterProducts(btn.getAttribute('data-category'));
+            });
+        });
+
     }
 
     /**
