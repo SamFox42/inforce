@@ -378,7 +378,9 @@ class ConfigLoader {
         
         // Add search functionality
         this.initSearch();
-        
+
+        this.initLazyLoad();
+
         // Make ConfigLoader instance available globally for other scripts
         window.configLoader = this;
     }
@@ -589,69 +591,77 @@ class ConfigLoader {
         if (!productsContainer || !this.configData.products) return;
 
         productsContainer.innerHTML = '';
+        this.productsPerPage = 8;
+        this.currentPage = 0;
 
-        this.configData.products.forEach((product, index) => {
+        // создаём отдельный контейнер под кнопку
+        let loadMoreContainer = document.getElementById('load-more-container');
+        if (!loadMoreContainer) {
+            loadMoreContainer = document.createElement('div');
+            loadMoreContainer.id = 'load-more-container';
+            productsContainer.parentNode.appendChild(loadMoreContainer);
+        }
+        loadMoreContainer.innerHTML = '';
+
+        const loadMoreBtn = document.createElement('button');
+        loadMoreBtn.textContent = 'Показать ещё';
+        loadMoreBtn.className = 'btn btn-primary load-more-btn';
+        loadMoreBtn.addEventListener('click', () => this.loadNextProducts());
+
+        loadMoreContainer.appendChild(loadMoreBtn);
+
+        this.loadNextProducts();
+    }
+
+
+
+    loadNextProducts() {
+        const productsContainer = document.getElementById('products-container');
+        const start = this.currentPage * this.productsPerPage;
+        const end = start + this.productsPerPage;
+        const productsToShow = this.configData.products.slice(start, end);
+
+        productsToShow.forEach(product => {
             const productCard = document.createElement('div');
             productCard.className = 'product-card fade-up';
-            productCard.classList.add(`delay-${index % 5 + 1}`);
             productCard.setAttribute('data-category', product.category);
-            productCard.setAttribute('data-product-index', index);
             productCard.setAttribute('tabindex', '0');
 
-            // Создаём слайдер для изображений
-            const images = [product.mainImage, ...product.additionalImages];
-            let sliderHTML = '';
-            if (images.length > 1) {
-                sliderHTML = `
-                    <div class="product-slider">
-                        <div class="product-slider-track" style="width: ${images.length * 100}%">
-                            ${images.map(img => `
-                                <div class="product-slider-slide" style="width: ${100 / images.length}%">
-                                    <img src="${img}" alt="${product.name}" class="product-image-svg" />
-                                </div>
-                            `).join('')}
-                        </div>
-                        <button class="slider-nav prev"><i class="fas fa-chevron-left"></i></button>
-                        <button class="slider-nav next"><i class="fas fa-chevron-right"></i></button>
-                    </div>
-                `;
-            } else {
-                sliderHTML = `<div class="product-image">${this.getProductSvgIcon(product.category, product.brand, product.mainImage)}</div>`;
-            }
-
             productCard.innerHTML = `
-                <span class="product-brand">${product.brand}</span>
-                ${sliderHTML}
-                <div class="product-details">
-                    <h3>${product.name}</h3>
-                    <div class="product-price">${product.price} ₽</div>
-                    <div class="product-compatibility">Совместимость: ${product.compatibility}</div>
-                    <div class="product-actions">
-                        <button class="product-details-btn">Подробнее</button>
-                    </div>
-                </div>
+    <span class="product-brand">${product.brand}</span>
+    <div class="product-image">
+        <div class="product-image-wrap">
+            ${this.getProductSvgIcon(product.category, product.brand, product.mainImage)}
+        </div>
+    </div>
+    <div class="product-details">
+        <h3>${product.name}</h3>
+        <div class="product-price">${product.price} ₽</div>
+        <div class="product-compatibility">Совместимость: ${product.compatibility}</div>
+        <div class="product-actions">
+            <button class="product-details-btn">Подробнее</button>
+        </div>
+    </div>  
             `;
 
-            this.add3DEffect(productCard);
-            this.addSliderControls(productCard, images.length);
 
-            productCard.addEventListener('click', (e) => {
-                if (e.target.classList.contains('product-details-btn') || e.target.classList.contains('slider-nav')) return;
+            productCard.querySelector('.product-details-btn').addEventListener('click', (e) => {
+                e.stopPropagation();
                 this.showProductDetails(product);
             });
 
-            const detailsBtn = productCard.querySelector('.product-details-btn');
-            if (detailsBtn) {
-                detailsBtn.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    this.showProductDetails(product);
-                });
-            }
-
             productsContainer.appendChild(productCard);
         });
+
+        this.currentPage++;
+        this.initLazyLoad(); // подключаем ленивую загрузку
+        if (end >= this.configData.products.length) {
+            const btn = document.querySelector('#load-more-container .load-more-btn');
+            if (btn) btn.style.display = 'none';
+        }
     }
-    
+
+
     /**
      * Add 3D tilt effect to product card if enabled in config
      * @param {HTMLElement} card - The product card element
@@ -919,63 +929,50 @@ class ConfigLoader {
      */
     getProductSvgIcon(category, brand = '', customImage = '') {
         if (customImage) {
-            return `<img src="${customImage}" alt="${category} ${brand}" class="product-image-svg" />`;
+            return `<img data-src="${customImage}" alt="${category} ${brand}" />`;
         }
-        
-        if (this.configData && this.configData.products) {
-            const product = this.configData.products.find(p => 
-                p.category === category && p.brand === brand && p.image
-            );
-            
-            if (product && product.image) {
-                return `<img src="${product.image}" alt="${category} ${brand}" class="product-image-svg" />`;
-            }
-        }
-        
+
+        // стандартные иконки из старого кода
         const brandLower = brand ? brand.toLowerCase().replace(/\s+/g, '_') : '';
-        
         switch (category) {
             case 'Дисплеи':
-                if (brandLower.includes('iphone') || brandLower.includes('apple')) {
-                    return `<img src="assets/images/products/iphone_display.jpg" alt="Дисплей ${brand}" class="product-image-svg" />`;
-                } else if (brandLower.includes('samsung')) {
-                    return `<img src="assets/images/products/samsung_display.jpg" alt="Дисплей ${brand}" class="product-image-svg" />`;
-                } else if (brandLower.includes('xiaomi')) {
-                    return `<img src="assets/images/products/xiaomi_display.jpg" alt="Дисплей ${brand}" class="product-image-svg" />`;
-                }
-                return `<img src="assets/images/products/display.jpg" alt="Дисплей" class="product-image-svg" />`;
-                
+                if (brandLower.includes('iphone') || brandLower.includes('apple'))
+                    return `<img data-src="assets/images/products/iphone_display.jpg" alt="Дисплей ${brand}" />`;
+                if (brandLower.includes('samsung'))
+                    return `<img data-src="assets/images/products/samsung_display.jpg" alt="Дисплей ${brand}" />`;
+                return `<img data-src="assets/images/products/display.jpg" alt="Дисплей" />`;
             case 'Аккумуляторы':
-                if (brandLower.includes('iphone') || brandLower.includes('apple')) {
-                    return `<img src="assets/images/products/iphone_battery.jpg" alt="Аккумулятор ${brand}" class="product-image-svg" />`;
-                } else if (brandLower.includes('samsung')) {
-                    return `<img src="assets/images/products/samsung_battery.jpg" alt="Аккумулятор ${brand}" class="product-image-svg" />`;
-                } else if (brandLower.includes('huawei')) {
-                    return `<img src="assets/images/products/huawei_battery.jpg" alt="Аккумулятор ${brand}" class="product-image-svg" />`;
-                }
-                return `<img src="assets/images/products/battery.jpg" alt="Аккумулятор" class="product-image-svg" />`;
-                
+                if (brandLower.includes('iphone') || brandLower.includes('apple'))
+                    return `<img data-src="assets/images/products/iphone_battery.jpg" alt="Аккумулятор ${brand}" />`;
+                if (brandLower.includes('samsung'))
+                    return `<img data-src="assets/images/products/samsung_battery.jpg" alt="Аккумулятор ${brand}" />`;
+                return `<img data-src="assets/images/products/battery.jpg" alt="Аккумулятор" />`;
             case 'Камеры':
-                if (brandLower.includes('iphone') || brandLower.includes('apple')) {
-                    return `<img src="assets/images/products/iphone_camera.jpg" alt="Камера ${brand}" class="product-image-svg" />`;
-                } else if (brandLower.includes('xiaomi')) {
-                    return `<img src="assets/images/products/xiaomi_camera.jpg" alt="Камера ${brand}" class="product-image-svg" />`;
-                }
-                return `<img src="assets/images/products/camera.jpg" alt="Камера" class="product-image-svg" />`;
-                
+                return `<img data-src="assets/images/products/camera.jpg" alt="Камера" />`;
             case 'Разъемы':
-                if (brandLower.includes('iphone') || brandLower.includes('apple')) {
-                    return `<img src="assets/images/products/iphone_connector.jpg" alt="Разъем ${brand}" class="product-image-svg" />`;
-                } else if (brandLower.includes('huawei')) {
-                    return `<img src="assets/images/products/huawei_connector.jpg" alt="Разъем ${brand}" class="product-image-svg" />`;
-                }
-                return `<img src="assets/images/products/connector.jpg" alt="Разъем" class="product-image-svg" />`;
-                
+                return `<img data-src="assets/images/products/connector.jpg" alt="Разъем" />`;
             default:
-                return `<img src="assets/images/hero_phone.jpg" alt="Запчасть" class="product-image-svg" />`;
+                return `<img data-src="assets/images/hero_phone.jpg" alt="Запчасть" />`;
         }
     }
-    
+
+    initLazyLoad() {
+        const lazyImages = document.querySelectorAll('.product-card img:not([src])');
+        const observer = new IntersectionObserver((entries, obs) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const img = entry.target;
+                    if (img.dataset.src) img.src = img.dataset.src;
+                    obs.unobserve(img);
+                }
+            });
+        }, { rootMargin: '200px' });
+
+        lazyImages.forEach(img => observer.observe(img));
+    }
+
+
+
     /**
      * Create product slider for featured products
      */
