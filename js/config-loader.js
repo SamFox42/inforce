@@ -906,12 +906,14 @@ class ConfigLoader {
         <a href="${product.avitoLink || '#'}" class="btn btn-primary" ${product.avitoLink ? '' : 'disabled'}>Заказать через Авито</a>
         <button class="btn btn-secondary modal-close-btn">Закрыть</button>
     `;
+        ctaContainer.querySelector('.modal-close-btn').addEventListener('click', () => this.closeProductModal());
 
         modal.style.display = 'block';
         setTimeout(() => {
             modal.classList.add('active');
         }, 10);
         document.body.style.overflow = 'hidden';
+
     }
 
 
