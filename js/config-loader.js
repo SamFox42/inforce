@@ -594,25 +594,28 @@ class ConfigLoader {
         this.productsPerPage = 8;
         this.currentPage = 0;
 
-        // создаём отдельный контейнер под кнопку
-        let loadMoreContainer = document.getElementById('load-more-container');
-        if (!loadMoreContainer) {
-            loadMoreContainer = document.createElement('div');
-            loadMoreContainer.id = 'load-more-container';
-            productsContainer.parentNode.appendChild(loadMoreContainer);
-        }
-        loadMoreContainer.innerHTML = '';
-
-        const loadMoreBtn = document.createElement('button');
-        loadMoreBtn.textContent = 'Показать ещё';
-        loadMoreBtn.className = 'btn btn-primary load-more-btn';
-        loadMoreBtn.addEventListener('click', () => this.loadNextProducts());
-
-        loadMoreContainer.appendChild(loadMoreBtn);
-
+        // убираем создание кнопки "Показать ещё"
         this.loadNextProducts();
+
+        // добавляем автоматическую подгрузку при скролле
+        this.initInfiniteScroll();
     }
 
+    initInfiniteScroll() {
+        const sentinel = document.createElement('div');
+        sentinel.id = 'products-sentinel';
+        document.getElementById('products-container').after(sentinel);
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    this.loadNextProducts();
+                }
+            });
+        }, { rootMargin: '300px' });
+
+        observer.observe(sentinel);
+    }
 
 
     loadNextProducts() {
@@ -628,22 +631,21 @@ class ConfigLoader {
             productCard.setAttribute('tabindex', '0');
 
             productCard.innerHTML = `
-    <span class="product-brand">${product.brand}</span>
-    <div class="product-image">
-        <div class="product-image-wrap">
-            ${this.getProductSvgIcon(product.category, product.brand, product.mainImage)}
-        </div>
-    </div>
-    <div class="product-details">
-        <h3>${product.name}</h3>
-        <div class="product-price">${product.price} ₽</div>
-        <div class="product-compatibility">Совместимость: ${product.compatibility}</div>
-        <div class="product-actions">
-            <button class="product-details-btn">Подробнее</button>
-        </div>
-    </div>  
-            `;
-
+            <span class="product-brand">${product.brand}</span>
+            <div class="product-image">
+                <div class="product-image-wrap">
+                    ${this.getProductSvgIcon(product.category, product.brand, product.mainImage)}
+                </div>
+            </div>
+            <div class="product-details">
+                <h3>${product.name}</h3>
+                <div class="product-price">${product.price} ₽</div>
+                <div class="product-compatibility">Совместимость: ${product.compatibility}</div>
+                <div class="product-actions">
+                    <button class="product-details-btn">Подробнее</button>
+                </div>
+            </div>  
+        `;
 
             productCard.querySelector('.product-details-btn').addEventListener('click', (e) => {
                 e.stopPropagation();
@@ -654,10 +656,12 @@ class ConfigLoader {
         });
 
         this.currentPage++;
-        this.initLazyLoad(); // подключаем ленивую загрузку
+        this.initLazyLoad();
+
+        // Останавливаем наблюдение, если товары закончились
         if (end >= this.configData.products.length) {
-            const btn = document.querySelector('#load-more-container .load-more-btn');
-            if (btn) btn.style.display = 'none';
+            const sentinel = document.getElementById('products-sentinel');
+            if (sentinel) sentinel.remove();
         }
     }
 
