@@ -849,63 +849,68 @@ class ConfigLoader {
     showProductDetails(product) {
         const modal = document.getElementById('product-details-modal');
         if (!modal) return;
-    
+
         const title = modal.querySelector('.product-modal-title');
         const brand = modal.querySelector('.product-modal-brand');
         const price = modal.querySelector('.product-modal-price');
         const compatibility = modal.querySelector('.product-modal-compatibility');
         const description = modal.querySelector('.product-modal-description');
         const image = modal.querySelector('.product-modal-image');
-    
+
         title.textContent = product.name;
         brand.innerHTML = `<strong>Бренд:</strong> ${product.brand}`;
         price.innerHTML = `<strong>Цена:</strong> <span class="highlight">${product.price} ₽</span>`;
-        compatibility.innerHTML = `<strong>Совместимость:</strong> ${product.compatibility}`;
-        
+
+        // Делаем ссылку с полным названием товара
+        const productLink = `product-details.html#${encodeURIComponent(product.name)}`;
+        compatibility.innerHTML = `<strong>Совместимость:</strong> ${product.compatibility} <br>
+        <a href="${productLink}" target="_blank">Подробнее...</a>`;
+
         description.innerHTML = `
-            <div class="description-scroll">
-                <p>${product.description}</p>
-            </div>
-        `;
-    
+        <div class="description-scroll">
+            <p>${product.description}</p>
+        </div>
+    `;
+
         const images = [product.mainImage, ...product.additionalImages];
         let sliderHTML = '';
         if (images.length > 1) {
             sliderHTML = `
-                <div class="product-slider">
-                    <div class="product-slider-track" style="width: ${images.length * 100}%">
-                        ${images.map(img => `
-                            <div class="product-slider-slide" style="width: ${100 / images.length}%">
-                                <img src="${img}" alt="${product.name}" class="product-image-svg" />
-                            </div>
-                        `).join('')}
-                    </div>
-                    <button class="slider-nav prev"><i class="fas fa-chevron-left"></i></button>
-                    <button class="slider-nav next"><i class="fas fa-chevron-right"></i></button>
+            <div class="product-slider">
+                <div class="product-slider-track" style="width: ${images.length * 100}%">
+                    ${images.map(img => `
+                        <div class="product-slider-slide" style="width: ${100 / images.length}%">
+                            <img src="${img}" alt="${product.name}" class="product-image-svg" />
+                        </div>
+                    `).join('')}
                 </div>
-            `;
+                <button class="slider-nav prev"><i class="fas fa-chevron-left"></i></button>
+                <button class="slider-nav next"><i class="fas fa-chevron-right"></i></button>
+            </div>
+        `;
         } else {
             sliderHTML = this.getProductSvgIcon(product.category, product.brand, product.mainImage);
         }
         image.innerHTML = sliderHTML;
-    
+
         if (images.length > 1) {
             this.addSliderControls(modal.querySelector('.product-modal-image'), images.length);
         }
-    
+
         const ctaContainer = modal.querySelector('.product-modal-cta');
         ctaContainer.innerHTML = `
-            <a href="${product.avitoLink || '#'}" class="btn btn-primary" ${product.avitoLink ? '' : 'disabled'}>Заказать через Авито</a>
-            <button class="btn btn-secondary modal-close-btn">Закрыть</button>
-        `;
-    
+        <a href="${product.avitoLink || '#'}" class="btn btn-primary" ${product.avitoLink ? '' : 'disabled'}>Заказать через Авито</a>
+        <button class="btn btn-secondary modal-close-btn">Закрыть</button>
+    `;
+
         modal.style.display = 'block';
         setTimeout(() => {
             modal.classList.add('active');
         }, 10);
         document.body.style.overflow = 'hidden';
     }
-    
+
+
     /**
      * Close product details modal
      */
