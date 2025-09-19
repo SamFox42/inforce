@@ -12,8 +12,33 @@ class ConfigLoader {
         this.currentSlide = 0;
         this.totalSlides = 0;
         this.searchResults = [];
+        this.activeCategory = 'all';
         window.configLoader = this; // Make available globally
     }
+
+
+    getFilteredProducts() {
+  if (!this.configData?.products) return [];
+  if (!this.activeCategory || this.activeCategory === 'all') return this.configData.products;
+  return this.configData.products.filter(p => p.category === this.activeCategory);
+}
+
+setActiveCategory(category) {
+  this.activeCategory = category || 'all';
+  // сброс контейнера и пагинации
+  const productsContainer = document.getElementById('products-container');
+  if (productsContainer) productsContainer.innerHTML = '';
+  this.currentPage = 0;
+
+  // убрать старый sentinel, чтобы не было двух наблюдателей
+  const oldSentinel = document.getElementById('products-sentinel');
+  if (oldSentinel) oldSentinel.remove();
+
+  // первый заход с учётом фильтра
+  this.loadNextProducts();
+  // пересобрать бесконечную прокрутку
+  this.initInfiniteScroll();
+}
 
     /**
      * Load the configuration from the text file
@@ -622,7 +647,9 @@ class ConfigLoader {
         const productsContainer = document.getElementById('products-container');
         const start = this.currentPage * this.productsPerPage;
         const end = start + this.productsPerPage;
-        const productsToShow = this.configData.products.slice(start, end);
+        const source = this.getFilteredProducts();
+const productsToShow = source.slice(start, end);
+
 
         productsToShow.forEach(product => {
             const productCard = document.createElement('div');
@@ -1168,24 +1195,9 @@ class ConfigLoader {
      * @param {string} category - The category to filter by
      */
     filterProducts(category) {
-        const productCards = document.querySelectorAll('.product-card');
-        
-        productCards.forEach(card => {
-            if (category === 'all' || card.getAttribute('data-category') === category) {
-                card.style.display = 'block';
-                setTimeout(() => {
-                    card.style.opacity = '1';
-                    card.style.transform = 'translateY(0)';
-                }, 10);
-            } else {
-                card.style.opacity = '0';
-                card.style.transform = 'translateY(10px)';
-                setTimeout(() => {
-                    card.style.display = 'none';
-                }, 300);
-            }
-        });
-    }
+  this.setActiveCategory(category);
+}
+
 
     /**
      * Populate the features in the about section
