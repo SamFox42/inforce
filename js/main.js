@@ -118,20 +118,17 @@ document.addEventListener("DOMContentLoaded", function() {
         const categoryButtons = document.querySelectorAll('.category-btn');
         
         categoryButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                // Remove active class from all buttons
+            button.addEventListener('click', (e) => {
+                e.preventDefault(); // чтобы не было скролла или лишних переходов
                 categoryButtons.forEach(btn => btn.classList.remove('active'));
-                
-                // Add active class to clicked button
                 button.classList.add('active');
-                
-                // Let the ConfigLoader handle the actual filtering
                 if (window.configLoader) {
                     const category = button.getAttribute('data-category');
                     window.configLoader.filterProducts(category);
                 }
             });
         });
+
     };
     
     // Initialize filters once the categories are loaded
