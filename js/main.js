@@ -75,13 +75,30 @@ document.addEventListener("DOMContentLoaded", function() {
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function(e) {
         const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-            e.preventDefault();
-            target.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
-            });
+        if (!target) return;
+
+        e.preventDefault();
+
+        // если есть глобальный загрузчик - паузим подгрузку
+        if (window.configLoader && typeof window.configLoader.pauseInfiniteScroll === 'function') {
+            window.configLoader.pauseInfiniteScroll();
         }
+
+        // нативный плавный скролл, дальше CSS компенсирует фиксированный хедер
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+        // дожидаемся окончания; scrollend поддерживается не везде, поэтому таймаут как fallback
+        const onDone = () => {
+            if (window.configLoader && typeof window.configLoader.resumeInfiniteScroll === 'function') {
+                window.configLoader.resumeInfiniteScroll();
+            }
+            window.removeEventListener('scrollend', onDone);
+        };
+
+        // попробуем событие scrollend
+        window.addEventListener('scrollend', onDone, { once: true });
+        // и страховочный таймер
+        setTimeout(onDone, 600);
     });
 });
     
