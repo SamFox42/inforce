@@ -71,25 +71,19 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     });
     
-    // --- Smooth Scrolling For Internal Links ---
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function(e) {
-            const target = document.querySelector(this.getAttribute('href'));
-            if (target) {
-                e.preventDefault();
-                
-                // Calculate the position
-                const headerHeight = header.offsetHeight;
-                const targetPosition = target.getBoundingClientRect().top + window.pageYOffset;
-                const offsetPosition = targetPosition - headerHeight;
-                
-                window.scrollTo({
-                    top: offsetPosition,
-                    behavior: 'smooth'
-                });
-            }
-        });
+// --- Smooth Scrolling For Internal Links ---
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+            e.preventDefault();
+            target.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
     });
+});
     
     // --- Animation on Scroll ---
     const animateElements = document.querySelectorAll('.fade-in, .fade-left, .fade-right, .fade-up');
