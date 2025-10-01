@@ -2206,3 +2206,6 @@ section {
 .load-more-btn:active {
     transform: translateY(0);
 }
+section {
+  scroll-margin-top: 80px; /* подгони под высоту твоего header */
+}
