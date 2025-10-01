@@ -13,6 +13,8 @@ class ConfigLoader {
         this.totalSlides = 0;
         this.searchResults = [];
         this.activeCategory = 'all';
+        this.isProgrammaticScroll = false; // флаг: сейчас скроллим кодом
+        this.infiniteObserver = null;      // ссылка на observer, чтобы отключать
         window.configLoader = this; // Make available globally
     }
 
@@ -627,20 +629,43 @@ setActiveCategory(category) {
     }
 
     initInfiniteScroll() {
-        const sentinel = document.createElement('div');
-        sentinel.id = 'products-sentinel';
-        document.getElementById('products-container').after(sentinel);
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    this.loadNextProducts();
-                }
-            });
-        }, { rootMargin: '300px' });
-
-        observer.observe(sentinel);
+    // сносим старый sentinel и отключаем прежний observer
+    const oldSentinel = document.getElementById('products-sentinel');
+    if (oldSentinel) oldSentinel.remove();
+    if (this.infiniteObserver) {
+        this.infiniteObserver.disconnect();
+        this.infiniteObserver = null;
     }
+
+    const productsContainer = document.getElementById('products-container');
+    if (!productsContainer) return;
+
+    const sentinel = document.createElement('div');
+    sentinel.id = 'products-sentinel';
+    productsContainer.after(sentinel);
+
+    this.infiniteObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (!entry.isIntersecting) return;
+            // если сейчас идёт программный скролл, не подгружаем
+            if (this.isProgrammaticScroll) return;
+            this.loadNextProducts();
+        });
+    }, { rootMargin: '300px' });
+
+    this.infiniteObserver.observe(sentinel);
+}
+pauseInfiniteScroll() {
+    this.isProgrammaticScroll = true;
+}
+
+resumeInfiniteScroll() {
+    // чуть откладываем, чтобы верстка устаканилась
+    setTimeout(() => {
+        this.isProgrammaticScroll = false;
+    }, 150);
+}
+
 
 
     loadNextProducts() {
